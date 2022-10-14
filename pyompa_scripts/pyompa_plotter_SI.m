@@ -57,6 +57,10 @@ ref=[106,-94.4,1];
 anaero_angle=[std_endmembers.tCO2_to_anaerobic_remin_ratio,std_endmembers.Nitrate_to_anaerobic_remin_ratio,std_endmembers.Phosphate_to_anaerobic_remin_ratio]; % define the vector direction
 std_endmembers.anaero_proj=std_endmembers.anaerobic_remin.*anaero_angle*ref'./refmag; % decouple nitrite reoxidation from our remineralization
 
+%%
+
+% figure()
+% plot(mean_endmembers.Oxygenmmolkg,mean_endmembers.no2_reox,'ko')
 
 
 %% splitting out each cruise
@@ -99,7 +103,7 @@ end
 for i=1:3
 
 figure(); %declare the figure. Running this script again will overwrite the figure unless you change the number
-fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,100*table2array(std_endmembers_cruise(:,60+i)),50,'natural','extrap');
+fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,100*table2array(std_endmembers_cruise(:,60+i))/3,50,'natural','extrap');
 cmap=cmocean('tempo');
 colormap(cmap);
 h=colorbar; %displays the colorbar
@@ -134,14 +138,14 @@ xlim([10 22.9])
 title(years(j))
 
 figure(); %declare the figure. Running this script again will overwrite the figure unless you change the number
-fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,std_endmembers_cruise.aero_proj,50,'natural','extrap');
+fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,std_endmembers_cruise.aero_proj/3,50,'natural','extrap');
 cmap=cmocean('amp');
 colormap(cmap);
 h=colorbar; %displays the colorbar
 set(get(h,'label'),'string',{'Unc in aerobic remineralization/','{\mu}mol kg^{-1} PO_4^{3-} equivalents'},'FontSize',12);
 xlabel(['Latitude/' char(176) 'N'])
 set(gca,'box','on')
-caxis([0 0.005]) %sets the range of colorbar. Comment out for an auto scale
+caxis([0 0.005/3]) %sets the range of colorbar. Comment out for an auto scale
 set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 title(years(j))
@@ -165,14 +169,14 @@ xlim([10 22.9])
 title(years(j))
 
 figure(); %declare the figure. Running this script again will overwrite the figure unless you change the number
-fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,abs(std_endmembers_cruise.anaero_proj),50,'natural','extrap');
+fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,abs(std_endmembers_cruise.anaero_proj)/3,50,'natural','extrap');
 cmap=cmocean('algae');
 colormap(cmap);
 h=colorbar; %displays the colorbar
 set(get(h,'label'),'string',{'Unc in anaerobic remineralization/','{\mu}mol kg^{-1} PO_4^{3-} equivalents'},'FontSize',12);
 xlabel(['Latitude/' char(176) 'N'])
 set(gca,'box','on')
-caxis([0 0.00016]) %sets the range of colorbar. Comment out for an auto scale
+caxis([0 0.00016/3]) %sets the range of colorbar. Comment out for an auto scale
 set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 title(years(j)) 

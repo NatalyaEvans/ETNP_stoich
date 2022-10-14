@@ -83,6 +83,7 @@ ylabel('Depth/m')
 else
     set(gca,'YTickLabels',[]);
 end
+ylim([200 800])
 
 set(gca,'XTickLabels',[]);
 set(gca,'box','on')
@@ -90,6 +91,8 @@ set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 title(year(j))
 k=k+1;
+
+saveas(gcf,[num2str(year(j)) ' o2.svg']);
 
 %% % reox
 
@@ -108,6 +111,7 @@ ylabel('Depth/m')
 else
     set(gca,'YTickLabels',[]);
 end
+ylim([200 800])
 
 set(gca,'XTickLabels',[]);
 set(gca,'box','on')
@@ -115,11 +119,13 @@ set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 k=k+1;
 
+saveas(gcf,[num2str(year(j)) ' no2 reox.svg']);
+
 %% % reox
 
 figure(k); %declare the figure. Running this script again will overwrite the figure unless you change the number
-fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,std_endmembers_cruise.no2_reox,50,'natural','extrap');
-caxis([0 13]) %sets the range of colorbar. Comment out for an auto scale
+fig=striped_interp(std_endmembers_cruise.Latitudedegrees_north,std_endmembers_cruise.Depthm,std_endmembers_cruise.no2_reox/3,50,'natural','extrap');
+caxis([0 13/3]) %sets the range of colorbar. Comment out for an auto scale
 cmap=viridis(100);
 colormap(cmap);
 h=colorbar; %displays the colorbar
@@ -132,12 +138,16 @@ ylabel('Depth/m')
 else
     set(gca,'YTickLabels',[]);
 end
+ylim([200 800])
 
 set(gca,'XTickLabels',[]);
 set(gca,'box','on')
 set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 k=k+1;
+
+saveas(gcf,[num2str(year(j)) ' no2 reox std.svg']);
+
     
 %% aerobic remin
 
@@ -154,6 +164,7 @@ ylabel('Depth/m')
 else
     set(gca,'YTickLabels',[]);
 end
+ylim([200 800])
 
 set(gca,'XTickLabels',[]);
 set(gca,'box','on')
@@ -161,6 +172,8 @@ caxis([-0.1 0.2]) %sets the range of colorbar. Comment out for an auto scale
 set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 k=k+1;
+
+saveas(gcf,[num2str(year(j)) ' aero.svg']);
 
 %% anaerobic remin
 
@@ -178,12 +191,14 @@ else
     set(gca,'YTickLabels',[]);
 end
 
-
+ylim([200 800])
 xlabel(['Latitude/' char(176) 'N'])
 set(gca,'box','on')
 set(gca,'position',[.1 .1 .69 .6])
 xlim([10 22.9]) 
 k=k+1;
+
+saveas(gcf,[num2str(year(j)) ' anaero.svg']);
 
 end
 
