@@ -21,28 +21,42 @@ def perturb_endmember_df(df, variation_range, rng):
 
 #%%
 def perturb_endmember_df_stoichiometrically(df, stoichiometry, rng,
-                                            perturbation_limits=(-1,1)):
+                                            perturbation_limits_0, 
+                                            scale_factor):
   #in Talia's project, pertubation_limits corresponds to phosphate which
   # has ratio 1 wrt to the converted param
   
   new_df = OrderedDict([
-      ("Params", df["Params"]), #endmember name column
+      ("Params", df["Params"]), #endmember name column and params that are carried through
       ("CT", df["CT"]),
       ("SA", df["SA"]),
   ])
 
   params_to_perturb = ["Phosphate", "Nitrate", "Silicate", "tCO2"]
-  #sample a different perturbation for each row in the data frame
-  sampled_perturbations = [rng.uniform(perturbation_limits[0],
-                                       perturbation_limits[1])
-                           for i in range(len(df))]
-  print(sampled_perturbations)
+
   for param_name in params_to_perturb:
     values = list(df[param_name])
-    new_values = [value + sampled_perturbation*stoichiometry[param_name]
-                  for sampled_perturbation,value in
-                  zip(sampled_perturbations,values)]
-    new_df[param_name] = new_values
+
+    # sample a different perturbation for each row in the data frame
+    sampled_perturbations_0 = [rng.uniform(perturbation_limits_0[0], # remin 1
+                                    perturbation_limits_0[1])
+                              for i in range(len(df))]
+    sampled_perturbations_1 = [rng.uniform(perturbation_limits_0[0]*scale_factor, # remin 2
+                                        perturbation_limits_0[1]*scale_factor)
+                                for i in range(len(df))]
+
+    new_values = [value + sampled_perturbation0*(stoichiometry[0].conversion_ratios[0][param_name] +
+                        stoichiometry[0].conversion_ratios[1][param_name])/2
+                        for sampled_perturbation0, value in
+                        zip(sampled_perturbations_0, values)]
+                  
+    new_values2 = [value + sampled_perturbation1*(stoichiometry[1].conversion_ratios[0][param_name] +
+                        stoichiometry[1].conversion_ratios[1][param_name])/2
+                        for sampled_perturbation1, value in
+                        zip(sampled_perturbations_1, new_values)]
+
+    new_df[param_name] = new_values2
+
 
   return pd.DataFrame(new_df)
 
@@ -50,4 +64,3 @@ variation_range = {
     "CT": 3, "SA": 0.75, "Phosphate": 1.5, "Nitrate": 10,
     "Silicate": 20, "tCO2": 100
 }
-
