@@ -49,9 +49,3 @@ variation_range = {
     "Silicate": 20, "tCO2": 100
 }
 
-perturb_endmember_df_stoichiometrically(
-    endmembers_df,
-    stoichiometry=convertedparamgroups[0].conversion_ratios[1],
-    perturbation_limits=(-0.5, 0.5),
-    rng = np.random.RandomState(1234))
-
