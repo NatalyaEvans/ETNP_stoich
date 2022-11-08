@@ -1,3 +1,5 @@
+from collections import OrderedDict
+import pandas as pd
 from gp15wma.sensitivity import BaseSensitivityAnalysis, OmpaArguments
 
 # Next, define functions for endmember sensitivities using the weightings sensitivity structure
