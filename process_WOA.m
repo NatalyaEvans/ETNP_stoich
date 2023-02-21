@@ -147,140 +147,169 @@ legend([p3, p2, p1],'13CW','NEPIW','AAIW','Location','Northwest')
 % commented out
 
 %% SiO4-PO4
-% 
-% % See comments on the N-P chunk for clarification on this code
-% 
-% figure(2)
-% i=1;
-% 
-% % plot WOA
-% p1=plot(x13CWfilt.Phosphateumolkg, x13CWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% hold on
-% i=i+1;
-% 
-% p2=plot(EqPIWfilt.Phosphateumolkg, EqPIWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% i=i+1;
-% 
-% p3=plot(AAIWfilt.Phosphateumolkg, AAIWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% i=i+1;
-% 
+
+% See comments on the N-P chunk for clarification on this code
+
+figure(2)
+i=1;
+
+% plot WOA
+p1=plot(x13CWfilt.Phosphateumolkg, x13CWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+hold on
+i=i+1;
+
+p2=plot(EqPIWfilt.Phosphateumolkg, EqPIWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+i=i+1;
+
+p3=plot(AAIWfilt.Phosphateumolkg, AAIWfilt.Silicateumolkg,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+i=i+1;
+
 % % Plot basis
 % p4=plot(basis_ETNP(4,:),basis_ETNP(6,:),'ro','MarkerFaceColor','r');
 % text(basis_ETNP(4,:),basis_ETNP(6,:),wm,'VerticalAlignment','bottom','HorizontalAlignment','right')
 % 
 % p5=plot(basis_Bograd_gsw(4,:),basis_Bograd_gsw(6,:),'kd','MarkerFaceColor','k');
 % text(basis_Bograd_gsw(4,:),basis_Bograd_gsw(6,:),wm_bograd,'VerticalAlignment','bottom','HorizontalAlignment','right')
-% 
-% % linear regressions
-% % 13CW
-% lr_num=lr_num+1;
-% pfilt=2.365;
-% x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
-% y=x13CWfilt.Silicateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'Si-P 13CW'};
-% 
-% % NEPIW
-% lr_num=lr_num+1;
-% pfilt=2.65;
-% x=EqPIWfilt.Phosphateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
-% y=EqPIWfilt.Silicateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
-% 
-% % ind=x < 2.15 & y < 31;
-% % ind=x<2.1;
-% % x(ind)=[];
-% % y(ind)=[];
-% 
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'Si-P NEPIW'};
-% 
-% % AAIW
-% lr_num=lr_num+1;
-% pfilt=20;
-% x=AAIWfilt.Phosphateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
-% y=AAIWfilt.Silicateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'Si-P AAICW'};
-% 
-% hold off
-% 
-% xlabel('PO_4^{3-}/{\mu}mol kg^{-1}')
-% ylabel('SiO_4^{2-}/{\mu}mol kg^{-1}')
+
+% linear regressions
+% 13CW
+lr_num=lr_num+1;
+pfilt=2.365;
+x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
+y=x13CWfilt.Silicateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'Si-P 13CW'};
+
+% NEPIW
+lr_num=lr_num+1;
+pfilt=2.65;
+x=EqPIWfilt.Phosphateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
+y=EqPIWfilt.Silicateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
+
+% ind=x < 2.15 & y < 31;
+% ind=x<2.1;
+% x(ind)=[];
+% y(ind)=[];
+
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'Si-P NEPIW'};
+
+% AAIW
+lr_num=lr_num+1;
+pfilt=20;
+x=AAIWfilt.Phosphateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
+y=AAIWfilt.Silicateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'Si-P AAICW'};
+
+hold off
+
+xlabel('PO_4^{3-}/{\mu}mol kg^{-1}')
+ylabel('SiO_4^{2-}/{\mu}mol kg^{-1}')
 % legend([p1, p2, p3, p4, p5],'13CW','NEPIW','AAIW','This paper','Bograd','Location','Northwest')
+legend([p3, p2, p1],'13CW','NEPIW','AAIW','Location','Northwest')
 
 %% O2-PO4
 
-% figure(3)
-% i=1;
-% 
-% % WOD data
-% p1=plot(x13CWfilt.Phosphateumolkg, x13CWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% hold on
-% i=i+1;
-% 
-% p2=plot(EqPIWfilt.Phosphateumolkg, EqPIWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% i=i+1;
-% 
-% p3=plot(AAIWfilt.Phosphateumolkg, AAIWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
-% i=i+1;
-% 
-% % basis
+figure(3)
+i=1;
+
+% WOD data
+p1=plot(x13CWfilt.Phosphateumolkg, x13CWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+hold on
+i=i+1;
+
+p2=plot(EqPIWfilt.Phosphateumolkg, EqPIWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+i=i+1;
+
+p3=plot(AAIWfilt.Phosphateumolkg, AAIWfilt.O2corr,'Color',col(:,i),'Marker',string(mark(i)),'LineStyle','none');
+i=i+1;
+
+% basis
 % p5=plot(basis_Bograd_gsw(4,:),basis_Bograd_gsw(3,:),'kd','MarkerFaceColor','k');
 % text(basis_Bograd_gsw(4,:),basis_Bograd_gsw(3,:),wm_bograd,'VerticalAlignment','bottom','HorizontalAlignment','right')
-% 
-% % linear regressions
-% % 13CW
-% lr_num=lr_num+1;
-% pfilt=2.3;
-% x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
-% y=x13CWfilt.Oxygenumolkg(x13CWfilt.Phosphateumolkg<pfilt);
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'O2-P 13CW'};
-% 
-% % lr_num=lr_num+1;
-% % pfilt=2.33;
-% % x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg>pfilt);
-% % y=x13CWfilt.Oxygenumolkg(x13CWfilt.Phosphateumolkg>pfilt);
-% % [m,b,r,sm,sb] = lsqfitma(x,y);
-% % plot(sort(x),m*sort(x)+b,'k')
-% % lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% % lr_label(lr_num)={'O2-P 13CW anaerobic'};
-% 
-% % NEPIW
-% lr_num=lr_num+1;
-% pfilt=2.7;
-% x=EqPIWfilt.Phosphateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
-% y=EqPIWfilt.Oxygenumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'O2-P NEPIW'};
-% 
-% % AAIW
-% lr_num=lr_num+1;
-% pfilt=3.25;
-% x=AAIWfilt.Phosphateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
-% y=AAIWfilt.Oxygenumolkg(AAIWfilt.Phosphateumolkg<pfilt);
-% [m,b,r,sm,sb] = lsqfitma(x,y);
-% plot(sort(x),m*sort(x)+b,'k')
-% lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
-% lr_label(lr_num)={'O2-P AIW'};
-% 
-% 
-% hold off
-% xlabel('PO_4^{3-}/{\mu}mol kg^{-1}')
-% ylabel('O_2/{\mu}mol kg^{-1}')
+
+% linear regressions
+% 13CW
+lr_num=lr_num+1;
+pfilt=2.3;
+x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg<pfilt);
+y=x13CWfilt.O2corr(x13CWfilt.Phosphateumolkg<pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P 13CW'};
+
+lr_num=lr_num+1;
+pfilt=2.24;
+x=x13CWfilt.Phosphateumolkg(x13CWfilt.Phosphateumolkg>pfilt);
+y=x13CWfilt.O2corr(x13CWfilt.Phosphateumolkg>pfilt);
+ind=[x>=2.489 & y>=14.79];
+x(ind)=[];
+y(ind)=[];
+
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P 13CW anaerobic'};
+
+% NEPIW
+lr_num=lr_num+1;
+pfilt=2.655;
+x=EqPIWfilt.Phosphateumolkg(EqPIWfilt.Phosphateumolkg<pfilt);
+y=EqPIWfilt.O2corr(EqPIWfilt.Phosphateumolkg<pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P NEPIW'};
+
+lr_num=lr_num+1;
+pfilt=2.57;
+x=EqPIWfilt.Phosphateumolkg(EqPIWfilt.Phosphateumolkg>pfilt);
+y=EqPIWfilt.O2corr(EqPIWfilt.Phosphateumolkg>pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P NEPIW anaerobic'};
+
+% AAIW
+lr_num=lr_num+1;
+pfilt=3.158;
+x=AAIWfilt.Phosphateumolkg(AAIWfilt.Phosphateumolkg<pfilt);
+y=AAIWfilt.O2corr(AAIWfilt.Phosphateumolkg<pfilt);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P AAIW'};
+
+% AAIW
+lr_num=lr_num+1;
+pfilt=3.0;
+x=AAIWfilt.Phosphateumolkg(AAIWfilt.Phosphateumolkg>pfilt & AAIWfilt.O2corr < 8);
+y=AAIWfilt.O2corr(AAIWfilt.Phosphateumolkg>pfilt & AAIWfilt.O2corr < 8);
+[m,b,r,sm,sb] = lsqfitma(x,y);
+plot(sort(x),m*sort(x)+b,'k')
+lr_out(lr_num,2)=m; lr_out(lr_num,3)=sm; lr_out(lr_num,4)=b; lr_out(lr_num,5)=sb; 
+lr_label(lr_num)={'O2-P AAIW anaerobic'};
+
+% xline([2.288, 2.655, 3.158],'k--')
+xline(2.288,'k--');
+xline(2.655,'k--');
+xline(3.158,'k--');
+
+hold off
+xlabel('PO_4^{3-}/{\mu}mol kg^{-1}')
+ylabel('WOA corrected O_2/{\mu}mol kg^{-1}')
+legend([p1, p2, p3],'13CW','NEPIW','AAIW','Location','Northeast')
 % legend([p1, p2, p3, p5],'13CW','NEPIW','AAIW','Bograd','Location','Northeast')
-% % ylim([0 50])
-% ylim([0 140])
+% ylim([0 50])
+ylim([0 140])
 
 %% Process table
 

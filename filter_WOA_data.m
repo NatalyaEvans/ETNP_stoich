@@ -48,8 +48,12 @@ x13CWfilt(toDelete,:) = [];
 toDelete =x13CWfilt.Nitrateumolkg < 15; % removes low NO3 points that snuck in
 x13CWfilt(toDelete,:) = [];
 
+toDelete = x13CWfilt.Phosphateumolkg > 2.587; % removes anomalously high O2
+x13CWfilt(toDelete,:) = [];
+
 % Apply Bianchi et al. 2012 O2 correction, not actually used in this paper
 x13CWfilt.O2corr=(1.009.*(x13CWfilt.Oxygenumolkg.*((1000+x13CWfilt.PotentialDensityAnomalys_0kgm3)./1000))-2.523).*(1000./(1000+x13CWfilt.PotentialDensityAnomalys_0kgm3));
+
 
 %% EqPIW
 
